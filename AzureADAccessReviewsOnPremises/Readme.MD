@@ -1,4 +1,19 @@
-## Enforcing Azure AD Access Reviews decisions on on-premises-managed groups (AzureADAccessReviewsOnPremises)
+# Enforcing Azure AD Access Reviews decisions on on-premises-managed groups (AzureADAccessReviewsOnPremises)
+## Synopsis
+
+This Powershell sample module exposes Powershell functions that allow to read Access Review results and - in case the Access Review was for an on-premises managed group - display Powershell commands for Windows AD, to enforce group membership changes.
+
+Access Reviews, today, can review on-premises-managed security groups. However, Access Reviews cannot (yet) enforce group membership changes as a result of Access Review decisions. 
+
+This script shows one possible scripted solution: it reads one or more Access Reviews, inspects whether the review(s) targeted on-premises security groups and if so, evaluates whether there were any "Deny" decisions by the reviewer, requiring a change in the on-premises group. If so, it will show Powershell commands that can be executed against Windows AD, to perform the required changes.
+
+> Connect-AzureADMSARSample -ClientApplicationId <clientID> -ClientSecret <clientSecret> -TenantDomain "yourTenant.onmicrosoft.com"
+> Get-AzureADARSingleReviewOnPrem "20924e60-a9fb-4891-9c92-f30c47636484" -filePath "C:\temp\WindowsADCommands.txt"
+  
+Removing 2 users from the group 8bbb95e4-cc93-4026-9afa-769fd89aa099
+Remove-ADGroupMember -Identity S-1-5-21-3579548627-1650277345-491116358-158602 -Members "S-1-5-21-3579548627-1650277345-491116358-5127","S-1-5-21-3579548627-1650277345-491116358-5
+569"
+
 
 ## Prerequisites
 This Powershell module runs in an application context, which requires that you create an application registration in Azure AD for this script, and admin-consent for the required permissions for Microsoft Graph.
