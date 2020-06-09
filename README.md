@@ -1,13 +1,3 @@
----
-page_type: sample
-languages:
-- csharp
-products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
----
-
 # Azure AD Access Reviews Powershell Samples
 
 <!-- 
@@ -18,15 +8,15 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Give a short description for your sample here. What does it do and why is it important?
+This repository contains sample scripts in Powershell that demonstrate and outline programmatic access to Azure AD Access Reviews via the Microsoft Graph. The scripts and code snippets provided here are provided "as-is", and merely serve the purpose of helping gaining the understanding for the Microsoft Graph API as well as the available functions for Azure AD Access Reviews.
 
 ## Contents
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
+This repository contains the following code snippets and Powershell samples:
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
+| `Apply group membership changes to on-premises groups`             | Azure AD Access Reviews supports reviewing of on-premises managed groups. However, it cannot, to date, enforce review results on on-premises groups. This script reads the results and generates corresponding Powershell commands, to be executed against Windows AD to enforce the review results on-premises.                        |
 | `.gitignore`      | Define what to ignore at commit time.      |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
