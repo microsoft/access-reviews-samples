@@ -8,9 +8,11 @@ Access Reviews, today, can review on-premises-managed security groups. However, 
 This script shows one possible scripted solution: it reads one or more Access Reviews, inspects whether the review(s) targeted on-premises security groups and if so, evaluates whether there were any "Deny" decisions by the reviewer, requiring a change in the on-premises group. If so, it will show Powershell commands that can be executed against Windows AD, to perform the required changes.
 
 > Connect-AzureADMSARSample -ClientApplicationId <clientID> -ClientSecret <clientSecret> -TenantDomain "yourTenant.onmicrosoft.com"
+
 > Get-AzureADARSingleReviewOnPrem "20924e60-a9fb-4891-9c92-f30c47636484" -filePath "C:\temp\WindowsADCommands.txt"
   
 Removing 2 users from the group 8bbb95e4-cc93-4026-9afa-769fd89aa099
+
 Remove-ADGroupMember -Identity S-1-5-21-3579548627-1650277345-491116358-158602 -Members "S-1-5-21-3579548627-1650277345-491116358-5127","S-1-5-21-3579548627-1650277345-491116358-5
 569"
 
