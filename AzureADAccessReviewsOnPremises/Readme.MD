@@ -33,23 +33,23 @@ Get-AzureADARSingleReviewOnPrem -reviewId "20924e60-a9fb-4891-9c92-f30c47636484"
 [-filePath] to define a text-based file the function writes the Windows AD Powershell command to.
 [-reviewId] to define the objectID of the Access Review you want to target and pull the review decisions from.
 
- .Synopsis
+ **.Synopsis**
   Retrieves decisions for a single Access Review and displays Powershell commands for Windows Active Directory to be executed to apply Access Reviews results on-premises.
 
- .Description
+ **.Description**
   Retrieves the decisions for a single Access Review, identified by the reviewID. Checks whether the Access Review reviews an on-premises group and if so, loads the decisions for it. If there are "deny" decisions for users, it will display a Powershell command that removes denied users from the Windows Active Directory group. This is to apply Access Reviews decisions to on-premises groups.
 
- .Parameter reviewID
+ **.Parameter reviewID**
   This is the objectID of the Access Review
 
- .Parameter filePath
+ **.Parameter filePath**
   This is the full file path for a TXT file that Powershell commands for Windows AD are written to.
 
- .Example
+ **.Example**
    Retrieve changes for on-premises group membership from the results of an Access Review - and print Powershell commands:
    Get-AzureADARSignleReviewOnPrem -reviewId 
 
- .Example
+ **.Example**
    Retrieve changes for on-premises group membership from the results of an Access Review - export the Powershell commands into a TXT file:
    Get-AzureADARSingleReviewOnPrem -reviewId "20924e60-a9fb-4891-9c92-f30c47636484" -filePath "C:\temp\WindowsADCommands.txt"
 
@@ -62,27 +62,27 @@ Get-AzureADARAllReviewsOnPrem -filePath "C:\temp\WindowsADCommands.txt" -maxRevi
 [-filePath] to define a text-based file the function writes the Windows AD Powershell command to.
 [-maxReviews] to define how many Access Reviews to inspect and look through, to determine whether they are targeted an on-premises managed group.
 
- .Synopsis
+ **.Synopsis**
   Retrieves decisions for a multiple Access Reviews and displays Powershell commands for Windows Active Directory to be executed to apply Access Reviews results on-premises.
 
- .Description
+ **.Description**
   Retrieves the decisions for multiple, past Access Reviews. Will retrieve results for as many past Access Reviews as defined by "maxReviews" parameter. Checks whether the Access Review reviews an on-premises group and if so, loads the decisions for it. If there are "deny" decisions for users, it will display a Powershell command that removes denied users from the Windows Active Directory group. This is to apply Access Reviews decisions to on-premises groups.
 
- .Parameter maxResults
+ **.Parameter maxResults**
   Defines the maximum number of Access Reviews to load and inspect.
 
- .Parameter filePath
+ **.Parameter filePath**
   This is the full file path for a TXT file that Powershell commands for Windows AD are written to.
 
- .Example
+ **.Example**
    Retrieve the 50 last Access Reviews and check whether they reviewed an on-premises group. If so, display Powershell commands to execute required changes against Windows Active Directory.
    Get-AzureADARAllReviewsOnPrem
 
- .Example
+ **.Example**
    Retrieve the 15 last Access Reviews and check whether they reviewed an on-premises group. If so, display Powershell commands to execute required changes against Windows Active Directory.
    Get-AzureADARAllReviewsOnPrem -maxReviews 15
 
- .Example
+ **.Example**
    Retrieve the 15 last Access Reviews and check whether they are reviewed an on-premises group. If so, display Powershell commands to execute required changes against Windows Active Directory. Export the Powershell commands into a TXT file:
    Get-AzureADARAllReviewsOnPrem -filePath "C:\temp\WindowsADCommands.txt" -maxReviews 15
 
