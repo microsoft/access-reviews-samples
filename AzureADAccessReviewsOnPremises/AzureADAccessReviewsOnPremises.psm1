@@ -1,6 +1,10 @@
-﻿#region AuthToken Handling
+﻿# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
 
-#This was stolen shamelessly from Mark's sample at https://techcommunity.microsoft.com/t5/azure-active-directory/example-how-to-create-azure-ad-access-reviews-using-microsoft/m-p/807241
+
+#region AuthToken Handling
+
+#Authentication sample from https://techcommunity.microsoft.com/t5/azure-active-directory/example-how-to-create-azure-ad-access-reviews-using-microsoft/m-p/807241
 function Get-GraphExampleAuthTokenServicePrincipal {
     [cmdletbinding()]
     param
@@ -223,7 +227,7 @@ function Get-AzureADARSingleReviewOnPrem
     $isGroupOnprem = Get-GroupByID $_SampleInternalAuthNHeaders $groupID ##if the group comes from on-premises, we are getting the SID from on-premises Windows AD back. Otherwise $null.
     if($isGroupOnprem -eq $null)
     {
-        throw "The group is not from on-premises, aborting." #Am I a joke to you?
+        throw "The group is not from on-premises, aborting." #The group is not from on-premises. Let's stop here.
     }
 
     #now start building a list of users to remove from the group.
@@ -284,7 +288,7 @@ function Get-ReviewResultsToApply($authHeaders, $reviewID)
         $applyResponse = Invoke-WebRequest -UseBasicParsing -headers $authHeaders -Uri $nextURL -Method Get
 
         if ($applyResponse -eq $null -or $applyResponse.Content -eq $null) {
-            throw "ERROR: We did not get a response from $nextUIRL"
+            throw "ERROR: We did not get a response from $nextURL"
          }
     
         $applyResult = ConvertFrom-Json $applyResponse.Content
@@ -323,7 +327,6 @@ function Get-GroupByID($authHeaders, $groupID)
 
 function Get-UsersOnPremSIDbyID($authHeaders, $userID)
 {
-   #$uri1 = "https://graph.microsoft.com/beta/accessReviews/" + $reviewId
     $usersURL = "https://graph.microsoft.com/v1.0/users/" + $userID + "/"
     $usersURL += '?$select=onPremisesSecurityIdentifier,onPremisesSyncEnabled' 
 
@@ -388,7 +391,7 @@ function Get-AzureADARAllReviewsOnPrem
 
     $allReviews = "https://graph.microsoft.com/beta/accessReviews?"
     $allReviews += '$filter=businessFlowTemplateId eq ''6e4f3d20-c5c3-407f-9695-8460952bcc68'' AND status eq ''Completed'' OR status eq ''Applied'''
-    $allReviews += '&$select=id,reviewedEntity,status' #cutOffDays?
+    $allReviews += '&$select=id,reviewedEntity,status' 
     $allReviews += '&$top='+$maxReviews+'&$skip=0' #filtering
     $allReviews = Invoke-WebRequest -UseBasicParsing -headers $_SampleInternalAuthNHeaders -Uri $allReviews -Method Get
 
