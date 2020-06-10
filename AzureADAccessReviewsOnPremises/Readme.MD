@@ -39,7 +39,9 @@ The steps are as follows:
 This sample module exports the following Azure AD functions:
 
 Export-modulemember -function Connect-AzureADMSARSample
+
 Export-modulemember -function Get-AzureADARSingleReviewOnPrem
+
 Export-modulemember -function Get-AzureADARAllReviewsOnPrem
 
 ## Exported functions
