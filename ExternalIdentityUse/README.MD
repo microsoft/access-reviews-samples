@@ -25,4 +25,5 @@ This Powershell module runs in user context, which requires that the user accoun
 [-filePath] to define the path the two output files (HTM and PS1) are created in. Use with a full path, such as:
 
 .\external-identity-enumeration-JUL2020.PS1 -filePath C:\temp 
+
 .\external-identity-enumeration-JUL2020.PS1 -filePath "C:\users\jennifer\Downloads\script files"
