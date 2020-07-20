@@ -1,0 +1,145 @@
+<html>
+<head>
+<link rel='stylesheet' type='text/css' href='style.css'>
+</head><body>
+<h1>Azure AD External Identity Lookup: Summary of guest users potentially ready for review using the Azure AD Access Reviews</h1>
+<table bgcolor='#AAAAAA'><tr><td>Generated on 20-Jul-2020 for FrickelsoftNET.onmicrosoft.com</td></tr></table>
+<h2>External users that have no static group membership or application assignments in your tenant</h2>
+<p>The following table outlines all external identities that have no static group memberships and no applications assignments in your tenant. The external identities listed below could, however, have one of the following:<br><li>group membership in dynamic groups</li><li>access to Sharepoint Sites managed outside of Azure AD groups or assigned directly</li></p>
+<table><thead>
+<tr><th>Domain</th><th>UPN</th><th>Display Name</th><th>Refresh Token</th><th>User State</th><th>User State Changed</th></tr>
+</thead><tbody>
+<tr>
+<td>identities.wtf</td>
+<td>a712873_identities.wtf#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>Madeline Small</td>
+<td>07/14/2020 06:04:35</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>identities.wtf</td>
+<td>espinotw_identities.wtf#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>Elena Spinotw</td>
+<td>07/14/2020 06:09:08</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>farrtoso.com</td>
+<td>john_farrtoso.com#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>John Farr</td>
+<td>11/18/2019 16:01:01</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>microsoft.frickelpartners.net</td>
+<td>robert_microsoft.frickelpartners.net#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>Robert Pattinson (EXT)</td>
+<td>01/19/2017 14:56:18</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>azure-hero.com</td>
+<td>peter_azure-hero.com#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>Peter Lammert</td>
+<td>11/18/2019 16:00:07</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>identitysso.onmicrosoft.com</td>
+<td>csp_support_admin_identitysso.onmicrosoft.com#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>Customer Support Admin</td>
+<td>08/13/2018 11:32:06</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>identitysso.onmicrosoft.com</td>
+<td>csp_support_admin2_identitysso.onmicrosoft.com#EXT#@FrickelsoftNET.onmicrosoft.com</td>
+<td>CSP Support Admin 2</td>
+<td>08/13/2018 11:45:13</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<h2>Script suggestion: Create groups to try Azure AD Access Reviews disable-and-delete feature on</h2>
+<p>There are 5 domains of external identities having no other group memberships. Below are Powershell code snippets that will allow you to create Azure AD groups that will include the 'group less' external identities found. Using this newly created group, you can create an Access Review with Disable and Delete.</h3>
+<h3>First, create or update a group for each domain's external identities, using this script <tt>C:\temp\guest-cleanup-FrickelsoftNET.onmicrosoft.com-20-Jul-2020.ps1</tt> that was also automatically created for you.</h3>
+<pre>
+# Create a group for 2 users from identities.wtf
+
+$gid1 = New-AzureADGroup -DisplayName "external identities from identities.wtf" -Description "access review of external identities from identities.wtf" -MailEnabled $false -SecurityEnabled $true -MailNickname "identities.wtf"
+
+# user "Madeline Small" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid1.ObjectId -RefObjectId "a1c3a6f2-756e-4230-83af-dba6c7568bf1"
+# user "Elena Spinotw" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid1.ObjectId -RefObjectId "bdd77c5f-eb29-4b9b-a607-d97e70f4fbb9"
+
+# Create a group for 1 users from farrtoso.com
+
+$gid2 = New-AzureADGroup -DisplayName "external identities from farrtoso.com" -Description "access review of external identities from farrtoso.com" -MailEnabled $false -SecurityEnabled $true -MailNickname "farrtoso.com"
+
+# user "John Farr" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid2.ObjectId -RefObjectId "06714039-45df-439c-9195-58bc01e7a852"
+
+# Create a group for 1 users from microsoft.frickelpartners.net
+
+$gid3 = New-AzureADGroup -DisplayName "external identities from microsoft.frickelpartners.net" -Description "access review of external identities from microsoft.frickelpartners.net" -MailEnabled $false -SecurityEnabled $true -MailNickname "microsoft.frickelpartners.net"
+
+# user "Robert Pattinson (EXT)" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid3.ObjectId -RefObjectId "f0610ab7-da71-4a4a-8ee3-94743144693d"
+
+# Create a group for 1 users from azure-hero.com
+
+$gid4 = New-AzureADGroup -DisplayName "external identities from azure-hero.com" -Description "access review of external identities from azure-hero.com" -MailEnabled $false -SecurityEnabled $true -MailNickname "azure-hero.com"
+
+# user "Peter Lammert" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid4.ObjectId -RefObjectId "1dfd1478-5202-4d8c-b71b-ba5afa9d3666"
+
+# Create a group for 2 users from identitysso.onmicrosoft.com
+
+$gid5 = New-AzureADGroup -DisplayName "external identities from identitysso.onmicrosoft.com" -Description "access review of external identities from identitysso.onmicrosoft.com" -MailEnabled $false -SecurityEnabled $true -MailNickname "identitysso.onmicrosoft.com"
+
+# user "Customer Support Admin" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid5.ObjectId -RefObjectId "9b522137-01bf-456f-ab30-cfe0e792bd2a"
+# user "CSP Support Admin 2" to be added to that new group
+Add-AzureADGroupMember -ObjectId $gid5.ObjectId -RefObjectId "33605554-c4a4-4fec-8da4-ed60d58400e3"
+
+</pre>
+<h3>Now, after you have created the respective groups, create an Access Review with disable-and-delete for them, following the instructions on DOCS.</h3>
+<hr>
+<h2>Additional Info: Other groups to review</h2>
+<p>The below groups have group members that are external identities. You may want to review these groups with Access Reviews, not to remove those external identities from the directory, but to determine if those external identities still need to be members of those groups.</p>
+<ul>
+<li> Group Name: Jennys Team (objectID: <tt>e45712da-4a52-422c-94c3-b158d366945a</tt>, 2 external identities as a member)</li>
+<li> Group Name: App Access to AWS-Console (objectID: <tt>5acb745d-8e46-498b-a5af-8a4e7e0b6693</tt>, 1 external identities as a member)</li>
+<li> Group Name: Sarahs Team of Externals (objectID: <tt>dd3251b3-0716-4906-a622-3322e042935c</tt>, 1 external identities as a member)</li>
+<li> Group Name: guests from identitysso.onmicrosoft.com (objectID: <tt>48bc094f-ddd6-4e09-b0f0-3a296e4c4735</tt>, 1 external identities as a member)</li>
+<li> Group Name: guests from microsoft.frickelpartners.net (objectID: <tt>f85a9e42-7e48-4372-9742-926c6c330109</tt>, 1 external identities as a member)</li>
+</ul>
+<h2>Additional Info: Directory roles to review</h2>
+<p>You may also wish to review the external identities in these directory roles, but to determine if those external identities still need to be members of those roles.</p>
+<ul>
+<li>Exchange Service Administrator</li>
+<li>Security Administrator</li>
+</ul>
+<h2>Additional Info: Apps to review</h2>
+<p>You may also wish to review the external identities in these apps, not to remove those external identities from the directory, but to determine if those external identities still need access.</p>
+<ul>
+<li>Claims XRay (<tt>7ef3e964-72e8-499c-808f-7f88ccfff73d</tt>, 3 users)</li>
+<li>RolesApp (<tt>646aabd5-66d0-490c-bce7-db918af7222e</tt>, 3 users)</li>
+<li>AWS Console (<tt>f165b8db-eaba-4bb9-a94d-2fae8c243038</tt>, 2 users)</li>
+<li>Dropbox Business - Finance (<tt>372be6b2-5e97-4a42-bf49-1ab582ff8e71</tt>, 1 users)</li>
+<li>Expenses App (<tt>982a82aa-22ff-427e-9d10-fc5443ff4de1</tt>, 1 users)</li>
+</ul>
+<h2>Additional Info: Non-Managed domains (Consumer domains) of external identities not included</h2>
+<p>There were 3 external identities from these domains that were not considered as candidates, as they are not from other tenants. 
+If you wish to include them, re-run this script with the -IncludeNonManagedUsers flag.</p>
+<ul>
+<li>gmx.de</li>
+</ul>
+</body></html>
