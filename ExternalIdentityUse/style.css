@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-decoration: underline;
+  font-size: xx-large;
+}
+
+h2 {
+  text-decoration: underline;
+  font-size: x-large;
+}
+
+h3 {
+    text-decoration: wavy;
+    font-size: large;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+table, th, td
+{
+  border: 1px solid black;
+}
