@@ -15,6 +15,26 @@ This script has two file outputs, once executed correctly:
 
 This Powershell script can be used to get an overview of external identities that do not have any assignments in groups or applications any more, hence, should be reviewed via Access Reviews for disable&delete from the tenant.
 
+## How to use this script and its output
+
+This sample script intends to assist Administrators and Compliance Auditors in organizations that use Azure AD for Business-to-Business (B2B) collaobration in finding, reviewing and - should need be - clean up external identity references from their Azure AD. As with internal users and employees - you want to ensure when collaborating with external partners, vendors and supplies that 
+
+> the right people have the right access at the right time.
+
+This script is the first step in discovering the use of external identities in your Azure AD tenant. It outlines where external identities are used and where external identities with potentially no permissions to resources exist, that can be cleaned up. Using the HTM output report and the PS1 script file, administrators will gain better clarity about the use of external identities in their tenant and can, based on the report, plan next steps to group (using the PS1 script) and review (using Azure AD Access Reviews) and re-attest continued need for external identities in the tenant.
+
+This script drives awareness of external identities and prepares administrators to be able to plan their Access Reviews deployment and setup, to review external identities' access, as well as the need for continued presence for external identities in their tenant.
+
+[Azure AD - Access Reviews](https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview)
+[Azure AD - Identity Governance](https://docs.microsoft.com/en-us/azure/active-directory/governance/identity-governance-overview)
+[Azure AD - External Collaboration](https://docs.microsoft.com/en-us/azure/active-directory/b2b/what-is-b2b)
+
+![How we suggest you use this script](./screenshots/ExternalIdentityUse.png)
+
+The HTM output this script generates outlines found external identities in the tenant and their use:
+
+![The HTM output file generated from the script](./screenshots/HTM-output.png)
+
 
 ## Prerequisites
 This Powershell module runs in user context, which requires that the user account you run this with has privileges to read the directory.
