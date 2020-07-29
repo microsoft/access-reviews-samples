@@ -40,10 +40,19 @@ The HTM output this script generates outlines found external identities in the t
 This Powershell module runs in user context, which requires that the user account you run this with has privileges to read the directory.
 
 ## Exported functions
+The script will run in the context of the executing user. An Azure AD user with reading permissions on the directory for users, groups, apps and roles is sufficient. The script, once started, will pop-up an Azure AD Sign-In dialog to sign-in into Azure AD.
+```Powershell
 .\external-identity-enumeration-JUL2020.PS1 -filePath C:\temp
+```
+
 
 [-filePath] to define the path the two output files (HTM and PS1) are created in. Use with a full path, such as:
 
-.\external-identity-enumeration-JUL2020.PS1 -filePath C:\temp 
+```Powershell
+.\external-identity-enumeration-JUL2020.PS1 -filePath C:\temp
 
 .\external-identity-enumeration-JUL2020.PS1 -filePath "C:\users\jennifer\Downloads\script files"
+```
+
+
+
