@@ -1,4 +1,4 @@
-# Gathering information around external identity proliferation (for Access Reviews Disable-and-Delete)
+# Gathering information around external identity proliferation (for Access Reviews Disable-and-Delete) in Azure AD
 ## Synopsis
 
 This Powershell sample script is meant to create a high-level overview over external identity use in a tenant, outlining if and where external identities are used:
@@ -25,9 +25,14 @@ This script is the first step in discovering the use of external identities in y
 
 This script drives awareness of external identities and prepares administrators to be able to plan their Access Reviews deployment and setup, to review external identities' access, as well as the need for continued presence for external identities in their tenant.
 
+Learn more:
+
 [Azure AD - Access Reviews](https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview)
+
 [Azure AD - Identity Governance](https://docs.microsoft.com/en-us/azure/active-directory/governance/identity-governance-overview)
+
 [Azure AD - External Collaboration](https://docs.microsoft.com/en-us/azure/active-directory/b2b/what-is-b2b)
+
 
 ![How we suggest you use this script](./screenshots/ExternalIdentityUse.png)
 
