@@ -41,7 +41,7 @@ The HTM output this script generates outlines found external identities in the t
 ![The HTM output file generated from the script](./screenshots/HTM-output.png)
 
 
-## Prerequisites
+## Prerequisites and starting the script
 This Powershell module runs in user context, which requires that the user account you run this with has privileges to read the directory. 
 
 If you want to learn what the script does, download the two sample output files, and get an overview of what the script generates and the style.CSS file to format the HTM output:
