@@ -42,7 +42,16 @@ The HTM output this script generates outlines found external identities in the t
 
 
 ## Prerequisites
-This Powershell module runs in user context, which requires that the user account you run this with has privileges to read the directory.
+This Powershell module runs in user context, which requires that the user account you run this with has privileges to read the directory. 
+
+If you want to learn what the script does, download the two sample output files, and get an overview of what the script generates and the style.CSS file to format the HTM output:
+* sample-output-guest-cleanup-FrickelsoftNET.onmicrosoft.com-20-Jul-2020.htm
+* style.CSS
+* sample-output-guest-cleanup-FrickelsoftNET.onmicrosoft.com-20-Jul-2020.PS1
+
+If you want to download the script and gather information, download the script file, as well as the .CSS style file, to format your tenant-specific output:
+* style.CSS
+* external-identity-research-JUL2020.ps1
 
 ## Exported functions
 The script will run in the context of the executing user. An Azure AD user with reading permissions on the directory for users, groups, apps and roles is sufficient. The script, once started, will pop-up an Azure AD Sign-In dialog to sign-in into Azure AD.
