@@ -110,3 +110,5 @@ Change to:
 ```Powershell
 "autoApplyDecisionsEnabled": true,
 ```
+Changing the template file will result in the Access Review to enforce disabling and after 30 days deleting of external identities, if they don't respond or declare they don't need access any more:
+![Changing the template and therefore the Access Review config enables disable and delete](./screenshots/disable-and-delete.png)
