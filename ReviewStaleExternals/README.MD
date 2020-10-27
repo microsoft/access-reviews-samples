@@ -51,6 +51,8 @@ Therefore, depending on which steps you want the script to undertake, you need t
 
 Also, please make sure you admin-consent to the Microsoft Graph scopes. The script uses the Access Reviews API V2.
 
+![The app-context OAuth scopes required to run this script](./screenshots/appPermissions.png)
+
 The clientID and the client secret must be supplied in last two lines of the script, alongside your tenant name:
 ```Powershell
 Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
