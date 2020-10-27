@@ -78,7 +78,13 @@ Or commenting out the last two lines and then calling the methods manually:
 ```Powershell
 .\review-stale-externals-OCT2020.PS1
 Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
-Find-AzureADStaleExternals $_SampleInternalAuthNHeaders $staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
+Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -$staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
+```
+If you do NOT want Access Reviews scheduled for you, but want the guest identities made members of newly created groups (set "-scheduleReviews" to $false):
+```Powershell
+.\review-stale-externals-OCT2020.PS1
+Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
+Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -$staleDays 60 -createReviewGroups $true -scheduleReviews $false -JSONPath "C:\temp\ARtemplate.json"
 ```
 
 ## Supported parameters:
