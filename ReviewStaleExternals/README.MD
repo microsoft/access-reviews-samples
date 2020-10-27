@@ -5,9 +5,9 @@ This Powershell sample script is meant to enumerate the external identities in y
 * put the external identities that it found into a security group that it creates, add them as members 
 * create an Access Review for that group, and request the external identities to self-attest that they still need access.
 
-This script has two files:
+This script has two files, both are required:
 1. PS1 file that is the main script. All logic is in this script file.
-2. A JSON text file that contains the description for an Access Review. The script uses this JSON file to create Access Review with the settings defined in the JSON, so that the right review settings are applied.
+2. A JSON text file (ARtemplate.JSON) that contains the description for an Access Review. The script uses this JSON file to create Access Review with the settings defined in the JSON, so that the right review settings are applied.
 
 This Powershell script can be used to get an overview of external identities that do have not come back in a while, hence, should be reviewed via Access Reviews and the option Disable and Delete (https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-external-users#disable-and-delete-external-identities-with-azure-ad-access-reviews-preview) from the tenant.
 
@@ -94,14 +94,14 @@ Find-AzureADStaleExternals $_SampleInternalAuthNHeaders $staleDays 60 -createRev
 [-JSONPath] indicates the literal (exact) path where to find the .JSON file that outlines the settings for the Access Reviews that will be scheduled.
 
 ## Access Reviews that are scheduled
-The template JSON file that you can download alongside the script has a definition of how Access Reviews for "stale" external identities will be scheduled. The template has pre-defined settings - but clearly, you can adjust the JSON template file according to your needs. The downloadable JSON file from here has the following settings:
+The template JSON file ("ARtemplate.JSON") that you need to download alongside the script has a definition of how Access Reviews for "stale" external identities will be scheduled. The template has pre-defined settings - but clearly, you can adjust the JSON template file according to your needs. The downloadable JSON file from here has the following settings for the Access Reviews that it schedules:
 
 * One-Time Access Review
-* Reviews Guest Identity only
+* Reviews Guest identities only
 * Starts the review immediately (Start Date: Today)
 * The external identities perform a self-review - there is no pre-defined reviewer. All external identities will be emailed and asked to attest if they still need access to the tenant.
 * In case they come back and say they still need access to the tenant, they must provide a business justification.
-* [Optional] External Identities that do NOT come back or come back and say they don't need access any more are blocked from signing in to your tenant and removed after 30 days ("Disable and Delete" feature in Azure AD Access Reviews). You can enable automatic blocking and deleting external identities, by changing the following line in the ARtemplate.JSON, before running the script:
+* [Optional] External Identities that do NOT come back or come back and say they don't need access any more are blocked from signing in to your tenant and removed after 30 days ("Disable and Delete" feature in Azure AD Access Reviews) automatically. You can enable automatic blocking and deleting external identities, by changing the following line in the ARtemplate.JSON, before running the script:
 Before:
 ```Powershell
 "autoApplyDecisionsEnabled": false,
