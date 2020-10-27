@@ -197,7 +197,7 @@ $_guestsNeverSignedIn = @()
    # Find external identities that have never signed in or have signed in more than 120 days ago and put them into new security groups. Schedule Access Reviews - and find the definition for the Access Review in c:\AccessReviews\template.JSON.
    Find-AzureADStaleExternals $_SampleInternalAuthNHeaders 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\AccessReviews\template.JSON"
 #>
-function Find-AzureADStaleExternals($authHeaders, $staleDays=180, $createReviewGroups=$false, $scheduleReviews=$false, $JSONPath = "C:\temp\CreateJSON.json")
+function Find-AzureADStaleExternals($authHeaders, $staleDays=180, $createReviewGroups=$false, $scheduleReviews=$false, $JSONPath = "C:\temp\ARtemplate.json")
 {
     ##Make sure $staleDays is in sensible boundaries.
     if(($staleDays >180) -or ($staleDays -eq $null))
@@ -266,12 +266,18 @@ function Find-AzureADStaleExternals($authHeaders, $staleDays=180, $createReviewG
         Write-Host "External identities that have never logged on in your tenant: $($_guestsNeverSignedIn.Count)"
         Write-Host $_guestsNeverSignedIn
     }
+    Start-Sleep -Seconds 20
 
     #if the caller wants us to create the Access Reviews for them, we'll call the methods below.
     if($scheduleReviews)
     {
-        if($_guestsNeverSignedIn.Count -gt 0) { Create-AzureADARScheduleDefinition $authHeaders $JSONPath $neverSignedInGroupObjectID "never" }
-        if($_guestsOutsideCutOff.Count -gt 0) { Create-AzureADARScheduleDefinition $authHeaders $JSONPath $beyondCutOffDAysGroupObjectID "beyond" }
+        $neverGroupCreated = Check-GroupHasMembers $authHeaders $neverSignedInGroupObjectID
+        $beyondGroupCreated = Check-GroupHasMembers $authHeaders $beyondCutOffDAysGroupObjectID
+
+        Start-Sleep -seconds 40
+
+        if($_guestsNeverSignedIn.Count -gt 0 -and $neverGroupCreated) { Create-AzureADARScheduleDefinition $authHeaders $JSONPath $neverSignedInGroupObjectID "never" }
+        if($_guestsOutsideCutOff.Count -gt 0 -and $beyondGroupCreated) { Create-AzureADARScheduleDefinition $authHeaders $JSONPath $beyondCutOffDAysGroupObjectID "beyond" }
     }
 }
 
@@ -312,6 +318,24 @@ function Add-NeverSignedInGroup($authHeaders)
             else { throw "We could not create the group."}
         }
 }
+
+function Check-GroupHasMembers($authHeaders, $groupObjectID)
+{
+    $groupURL = "https://graph.microsoft.com/v1.0/groups/" + $groupObjectID + "/members"
+    $groupResponse = Invoke-WebRequest -UseBasicParsing -headers $authHeaders -Uri $groupURL -Method Get
+
+    $groupResult = ConvertFrom-Json $groupResponse.Content
+
+    #Did we get a result?
+    if ($groupResult -eq $null -and $groupResult.Content -eq $null) {
+        throw "ERROR: We did not get a response from Graph, asking for the group, $groupURL"
+     }
+    #Qualifying the result. If the SID OR the onPremisesLastSyncDateTime are null or empty, we have reason to believe it's not an on-premises group. 
+    #We can abort then.
+    if($groupResponse.Content.Count -gt 0) { return $true }
+    else { return $false }
+}
+
 
 function Add-BeyondCutOffDaysGroup($authHeaders, $staleDays)
 {
@@ -403,5 +427,5 @@ function Create-AzureADARScheduleDefinition($authHeaders, $JSONPath, $groupObjec
 
 } 
 
-Connect-AzureADMSARSample -ClientApplicationId "ABCD" -ClientSecret "DEFG" -TenantDomain "<yourtenant>.onmicrosoft.com"
-Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\CreateJSON.json"
+Connect-AzureADMSARSample -ClientApplicationId "<appID>" -ClientSecret "<clientSecret>" -TenantDomain "<yourtenant>.onmicrosoft.com"
+Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
