@@ -60,9 +60,11 @@ Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "
 ```
 The last two lines in the script are (a) there to connect to Azure AD and acquire an access_token for making Microsoft Graph calls, as well as (b) start the script with the relevant parameters.
 
-If you want to download the script and gather information, download the script file, as well as the .CSS style file, to format your tenant-specific output:
+If you want to download the script and gather information, download the script file, as well as the .JSON style file, to schedule Access Reviews automatically:
 * ARtemplate.JSON
 * review-stale-externals-OCT2020.ps1
+
+As always - use this script in a test environment first, before you carry it forward to a (near-) production environment. This is a sample script, for you to adjust and make it your own.
 
 ## Exported functions
 The script will run in the context of the Service Principal you have created (application context) and could therefore be used to run "headless", as a scheduled script or task that runs just like a scheduled tasks, every three months.
