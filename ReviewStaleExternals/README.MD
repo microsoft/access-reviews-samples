@@ -36,7 +36,7 @@ Learn more:
 ## Prerequisites and starting the script
 This Powershell module runs in application context, which requires that a Service Principal is created in Azure AD that has a clientID (application ID) and a client secret. 
 
-The script can perform three actions for you - and you can decide whether you want any of the actions to be performed:
+The script can perform three actions for you - and you can decide whether you want only the first, or all of them to be performed:
 * Go through the tenant and enumerate all external identities and find out if they ever signed in to the tenant, or if their last signin date is far in the past
 * The external identities found that never signed in or whose sign in date is far in the past, can be added as members to two groups that the script creates
 * The script creates two Access Reviews automatically for the two groups it just created.
