@@ -9,7 +9,9 @@ This script has two files:
 1. PS1 file that is the main script. All logic is in this script file.
 2. A JSON text file that contains the description for an Access Review. The script uses this JSON file to create Access Review with the settings defined in the JSON, so that the right review settings are applied.
 
-This Powershell script can be used to get an overview of external identities that do not have any assignments in groups or applications any more, hence, should be reviewed via Access Reviews for disable&delete from the tenant.
+This Powershell script can be used to get an overview of external identities that do have not come back in a while, hence, should be reviewed via Access Reviews for disable&delete from the tenant.
+
+
 
 ## How to use this script and its output
 
