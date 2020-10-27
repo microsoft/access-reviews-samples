@@ -1,4 +1,4 @@
-# Finding external identities ("B2B Guests") that have not never signed into your tenant, or have signed in to your tenant a long time ago
+# Finding external identities ("B2B Guests") that have never signed into your tenant, or have signed in to your tenant a long time ago
 ## Synopsis
 
 This Powershell sample script is meant to enumerate the external identities in your tenant and check when their lastSignInDateTime was. When external identities have never signed in to your tenant, or have signed in a long time ago, the script can also:
