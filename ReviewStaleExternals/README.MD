@@ -11,7 +11,9 @@ This script has two files:
 
 This Powershell script can be used to get an overview of external identities that do have not come back in a while, hence, should be reviewed via Access Reviews for disable&delete from the tenant.
 
+The script automates a few steps that - previously - needed to happen in multiple, partially manual, steps. An overview how you can think of this script is outlined in the following picture:
 
+![How we suggest you use this script](./screenshots/StaleIDs.png)
 
 ## How to use this script and its output
 
