@@ -271,8 +271,8 @@ function Find-AzureADStaleExternals($authHeaders, $staleDays=180, $createReviewG
     #if the caller wants us to create the Access Reviews for them, we'll call the methods below.
     if($scheduleReviews)
     {
-        $neverGroupCreated = Check-GroupHasMembers $authHeaders $neverSignedInGroupObjectID
-        $beyondGroupCreated = Check-GroupHasMembers $authHeaders $beyondCutOffDAysGroupObjectID
+        if($_guestsNeverSignedIn.Count -gt 0) { $neverGroupCreated = Check-GroupHasMembers $authHeaders $neverSignedInGroupObjectID }
+        if($_guestsOutsideCutOff.Count -gt 0) { $beyondGroupCreated = Check-GroupHasMembers $authHeaders $beyondCutOffDAysGroupObjectID}
 
         Start-Sleep -seconds 40
 
@@ -427,5 +427,5 @@ function Create-AzureADARScheduleDefinition($authHeaders, $JSONPath, $groupObjec
 
 } 
 
-Connect-AzureADMSARSample -ClientApplicationId "<appID>" -ClientSecret "<clientSecret>" -TenantDomain "<yourtenant>.onmicrosoft.com"
+Connect-AzureADMSARSample -ClientApplicationId "ABCD" -ClientSecret "DEFG" -TenantDomain "<yourtenant>.onmicrosoft.com"
 Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
