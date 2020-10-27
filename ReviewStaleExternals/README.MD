@@ -61,7 +61,7 @@ Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "
 The last two lines in the script are (a) there to connect to Azure AD and acquire an access_token for making Microsoft Graph calls, as well as (b) start the script with the relevant parameters.
 
 If you want to download the script and gather information, download the script file, as well as the .CSS style file, to format your tenant-specific output:
-* CreateJSON.JSON
+* ARtemplate.JSON
 * review-stale-externals-OCT2020.ps1
 
 ## Exported functions
@@ -78,7 +78,7 @@ Or commenting out the last two lines and then calling the methods manually:
 ```Powershell
 .\review-stale-externals-OCT2020.PS1
 Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
-Find-AzureADStaleExternals $_SampleInternalAuthNHeaders $staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\CreateJSON.json"
+Find-AzureADStaleExternals $_SampleInternalAuthNHeaders $staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
 ```
 
 ## Supported parameters:
