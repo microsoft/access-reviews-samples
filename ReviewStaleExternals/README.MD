@@ -32,29 +32,68 @@ Learn more:
 ## Prerequisites and starting the script
 This Powershell module runs in application context, which requires that a Service Principal is created in Azure AD that has a clientID (application ID) and a client secret. 
 
-If you want to learn what the script does, download the two sample output files, and get an overview of what the script generates and the style.CSS file to format the HTM output:
-* sample-output-guest-cleanup-FrickelsoftNET.onmicrosoft.com-20-Jul-2020.htm
-* style.CSS
-* sample-output-guest-cleanup-FrickelsoftNET.onmicrosoft.com-20-Jul-2020.PS1
+The script can perform three actions for you - and you can decide whether you want any of the actions to be performed:
+* Go through the tenant and enumerate all external identities and find out if they ever signed in to the tenant, or if their last signin date is far in the past
+* The external identities found that never signed in or whose sign in date is far in the past, can be added as members to two groups that the script creates
+* The script creates two Access Reviews automatically for the two groups it just created.
+
+Therefore, depending on which steps you want the script to undertake, you need to add the following Microsoft Graph OAuth2 scopes to the Service Principal that the script uses:
+* Users.Read.All - to read external identity user accounts.
+* AuditLog.Read.All - to read the lastSignInDateTime for the external identities. That information is not stored as part of the user object, but in the audit log portions in Azure AD.
+* Group.Create - to create the two security groups to add stale external identities as members.
+* GroupMember.ReadWrite.All - to add the stale external identities as members.
+* AccessReview.Read.All - to create the Access Review
+* AccessReview.ReadWrite.Membership - to create the Access Review
+
+Also, please make sure you admin-consent to the Microsoft Graph scopes. The script uses the Access Reviews API V2.
+
+The clientID and the client secret must be supplied in last two lines of the script, alongside your tenant name:
+```Powershell
+Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
+```
+The last two lines in the script are (a) there to connect to Azure AD and acquire an access_token for making Microsoft Graph calls, as well as (b) start the script with the relevant parameters.
 
 If you want to download the script and gather information, download the script file, as well as the .CSS style file, to format your tenant-specific output:
-* style.CSS
-* external-identity-research-JUL2020.ps1
+* CreateJSON.JSON
+* review-stale-externals-OCT2020.ps1
 
 ## Exported functions
-The script will run in the context of the executing user. An Azure AD user with reading permissions on the directory for users, groups, apps and roles is sufficient. The script, once started, will pop-up an Azure AD Sign-In dialog to sign-in into Azure AD.
+The script will run in the context of the Service Principal you have created (application context) and could therefore be used to run "headless", as a scheduled script or task that runs just like a scheduled tasks, every three months.
+
+You can either modify the PS1 script file, such that it contains all relevant information about client ID, client secret and the parameters you want to call the script with, or you comment out the last two lines, run the script, and call the relevent functions yourself:
+
+After modifying the script:
 ```Powershell
-.\external-identity-research-JUL2020.PS1 -filePath C:\temp
+.\review-stale-externals-OCT2020.PS1
 ```
 
-
-[-filePath] to define the path the two output files (HTM and PS1) are created in. Use with a full path, such as:
-
+Or commenting out the last two lines and then calling the methods manually:
 ```Powershell
-.\external-identity-research-JUL2020.PS1 -filePath C:\temp
-
-.\external-identity-research-JUL2020.PS1 -filePath "C:\users\jennifer\Downloads\script files"
+.\review-stale-externals-OCT2020.PS1
+Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
+Find-AzureADStaleExternals $_SampleInternalAuthNHeaders $staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\CreateJSON.json"
 ```
 
+## Supported parameters:
+
+[-staleDays] to define the maximum number of days that external identities can be "stale" with not having signed into your tenant, before the script catches them.
+
+[-createReviewGroups] indicates with $true or $false whether the script should - in case it found external identities - create two security groups and add the found external identities as members:
+* A group with displayName REVIEW_GUESTS_NOT_SIGNED_IN_LAST_XX_DAYS_<date> will be created with all external identities as members that have not signed in the last XX days.
+* A group with displayName REVIEW_GUESTS_NEVER_SIGNED_IN_<date> will be created with all external identities as members that have NEVER signed in to your tenant.
+
+[-scheduleReviews] indicates with $true or $false whether the script should - in case it found external identities - create an Access Review for the two security groups. The Access Review will have the settings as outlined in the JSON template file.
+
+[-JSONPath] indicates the literal (exact) path where to find the .JSON file that outlines the settings for the Access Reviews that will be scheduled.
+
+## Access Reviews that are scheduled
+The template JSON file that you can download alongside the script has a definition of how Access Reviews for "stale" external identities will be scheduled. The template has pre-defined settings - but clearly, you can adjust the JSON template file according to your needs. The downloadable JSON file from here has the following settings:
+
+* One-Time Access Review
+* Reviews Guest Identity only
+* Starts the review immediately (Start Date: Today)
+* The external identities perform a self-review - there is no pre-defined reviewer. All external identities will be emailed and asked to attest if they still need access to the tenant.
+* In case they come back and say they still need access to the tenant, they must provide a business justification.
+* External Identities that do NOT come back or come back and say they don't need access any more are blocked from signing in to your tenant and removed after 30 days ("Disable and Delete" feature in Azure AD Access Reviews)
 
 
