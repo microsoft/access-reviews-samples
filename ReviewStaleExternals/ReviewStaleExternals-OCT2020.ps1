@@ -403,5 +403,5 @@ function Create-AzureADARScheduleDefinition($authHeaders, $JSONPath, $groupObjec
 
 } 
 
-Connect-AzureADMSARSample -ClientApplicationId "54ed4c91-7c8a-444e-9af3-05045b8e8994" -ClientSecret "oaP1M29YDnU_i_-1p4fpl7-d6876wijZgB" -TenantDomain "frickelsoftnet.onmicrosoft.com"
+Connect-AzureADMSARSample -ClientApplicationId "ABCD" -ClientSecret "DEFG" -TenantDomain "<yourtenant>.onmicrosoft.com"
 Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\CreateJSON.json"
