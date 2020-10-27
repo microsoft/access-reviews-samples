@@ -101,6 +101,12 @@ The template JSON file that you can download alongside the script has a definiti
 * Starts the review immediately (Start Date: Today)
 * The external identities perform a self-review - there is no pre-defined reviewer. All external identities will be emailed and asked to attest if they still need access to the tenant.
 * In case they come back and say they still need access to the tenant, they must provide a business justification.
-* External Identities that do NOT come back or come back and say they don't need access any more are blocked from signing in to your tenant and removed after 30 days ("Disable and Delete" feature in Azure AD Access Reviews)
-
-
+* [Optional] External Identities that do NOT come back or come back and say they don't need access any more are blocked from signing in to your tenant and removed after 30 days ("Disable and Delete" feature in Azure AD Access Reviews). You can enable this, by changing the following line in the ARtemplate.JSON, before running the script:
+Before:
+```Powershell
+"defaultDecisionEnabled": false,
+```
+Change to:
+```Powershell
+"defaultDecisionEnabled": true,
+```
