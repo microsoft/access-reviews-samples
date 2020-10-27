@@ -2,8 +2,8 @@
 ## Synopsis
 
 This Powershell sample script is meant to enumerate the external identities in your tenant and check when their lastSignInDateTime was. When external identities have never signed in to your tenant, or have signed in a long time ago, the script can also:
-* put the external identities that it found into a security group that it creates, add them as members 
-* create an Access Review for that group, and request the external identities to self-attest that they still need access.
+* put the external identities that it found never signed in or signed in a long time ago into respective security groups (which it creates new), and add them as members 
+* create Access Reviews for these two groups, and request the external identities to self-attest that they still need access.
 
 This script has two files, both are required:
 1. PS1 file that is the main script. All logic is in this script file.
