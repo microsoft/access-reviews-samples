@@ -1,0 +1,39 @@
+{
+    "displayName": "<<MYREVIEW>>",
+    "descriptionForAdmins": "<<MYREVIEW-ADMINDESC>>",
+    "descriptionForReviewers": "<<MYREVIEW-REVIEWERDESC>>",
+    "scope": {
+        "query": "/groups/<<groupID>>/transitiveMembers/microsoft.graph.user/?$count=true&$filter=(userType eq 'Guest')",
+        "queryType": "MicrosoftGraph"
+    },
+    "instanceEnumerationScope": {
+        "query": "/groups/<<groupID>>",
+        "queryType": "MicrosoftGraph"
+    },
+    "reviewers": [],
+    "settings": {
+        "mailNotificationsEnabled": true,
+        "reminderNotificationsEnabled": true,
+        "justificationRequiredOnApproval": true,
+        "defaultDecisionEnabled": true,
+        "defaultDecision": "Deny",
+        "instanceDurationInDays": 0,
+        "autoApplyDecisionsEnabled": false,
+        "recommendationsEnabled": true,
+        "recurrence": {
+            "pattern": null,
+            "range": {
+                "type": "numbered",
+                "numberOfOccurrences": 0,
+                "recurrenceTimeZone": null,
+                "startDate": "<<START-DATE>>",
+                "endDate": "<<END-DATE>>"
+            }
+        },
+        "applyActions": [
+            {
+                "@odata.type": "#microsoft.graph.disableAndDeleteUserApplyAction"
+            }
+        ]
+    }
+}
