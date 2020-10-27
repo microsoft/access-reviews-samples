@@ -44,6 +44,7 @@ The script can perform three actions for you - and you can decide whether you wa
 Therefore, depending on which steps you want the script to undertake, you need to add the following Microsoft Graph OAuth2 scopes to the Service Principal that the script uses:
 * Users.Read.All - to read external identity user accounts.
 * AuditLog.Read.All - to read the lastSignInDateTime for the external identities. That information is not stored as part of the user object, but in the audit log portions in Azure AD.
+* Organization.Read.All - to read the organization details - also required for the lastSignInDateTime to be readable.
 * Group.Create - to create the two security groups to add stale external identities as members.
 * GroupMember.ReadWrite.All - to add the stale external identities as members.
 * AccessReview.Read.All - to create the Access Review
