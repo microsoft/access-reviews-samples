@@ -138,3 +138,34 @@ This sample module exports the following Azure AD functions:
  .Example
  
    Get-AzureADARDefinition -definitionID "a66c337b-6344-4661-a41b-a04e492baa44" -instanceID "a66c337b-6344-4661-a41b-a04e492baa44"
+   
+ 
+ ### Samples
+ 
+ ```Powershell
+ # Connect-AzureADMSARSample -ClientApplicationId "<clientID>" -ClientSecret "<client secret>" -TenantDomain "yourtenant.onmicrosoft.com"
+ # Get-AzureADARAllDefinitions $_SampleInternalAuthNHeaders -top 6
+ 
+ 
+definitionID                         displayName
+------------                         -----------
+608df9d0-1558-4f9e-899c-7b88aa964196 Review guest access across Microsoft 365 groups
+384c0424-2946-47ed-9c3d-a7ba83627a16 Florian's Graph-initiated review (Group review for external identities)
+b3a028bd-f01f-419e-b50f-4b0e18528a05 Jenny's review
+9674ef14-cb5a-43e2-bfea-710de89e730b No owners review
+07b34c8d-467a-4905-b5e7-714d40c75b1a Review of external identities that have not signed in a long time      
+4cbc9f92-4366-4bd0-91d8-7568473e0d4a Review of external identities that have never signed in.
+
+
+
+# Get-AzureADARInstancesFromDefinition $_SampleInternalAuthNHeaders "608df9d0-1558-4f9e-899c-7b88aa964196"
+
+definitionID                         instanceID                           status     authHeaders
+------------                         ----------                           ------     -----------
+608df9d0-1558-4f9e-899c-7b88aa964196 de0f0323-0a33-4437-8427-14b3238c041e InProgress {Authorization, Content-Type, ExpiresOn}
+608df9d0-1558-4f9e-899c-7b88aa964196 1e2fcd2f-ec3a-4db5-a193-f9bcef93a34b InProgress {Authorization, Content-Type, ExpiresOn}
+608df9d0-1558-4f9e-899c-7b88aa964196 c42dcd66-c57f-4c7c-9399-a76c6d644e11 InProgress {Authorization, Content-Type, ExpiresOn}
+```
+
+
+ 
