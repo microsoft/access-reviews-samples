@@ -44,75 +44,97 @@ This sample module exports the following Azure AD functions:
 ### Get-AzureADARAllDefinitions
 
  .Synopsis
+ 
   Gets the definition for all Access Reviews, and displays their status, creation dates and creators.
 
  .Description
+ 
   Gets the definition for all Access Reviews, and displays their status, creation dates and creators. Will display 20 Access Reviews by default.
 
  .Parameter top
+ 
   The number of Access Reviews to return.
 
  .Example
+ 
    Get-AzureADARDefinition -top 15
 
 ### Get-AzureADARDefinition
 
 .Synopsis
+
   Gets the definition (blueprint) of an Access Review and displays its status, creation date and creator.
 
  .Description
+ 
   Gets the definition of an Access Review and displays its status, creation date and creator.
 
  .Parameter definitionID
+ 
   The ID of an Access Review, as seen from the Azure AD Portal.
 
  .Example
+ 
    Get-AzureADARDefinition -definitionID "a66c337b-6344-4661-a41b-a04e492baa44"
 
 ### Get-AzureADARInstancesFromDefinition
 
  .Synopsis
+ 
   Gets the instances for an Access Review.
 
  .Description
+ 
   Gets the instances for an Access Review. An instance could be individual reviews in a series or many reviews under one defintiion, such as "All O365 Groups with external identities".
 
  .Parameter top
+ 
   The number of Access Reviews to 
 
  .Example
+ 
    Get-AzureADARDefinition -definitionID "a66c337b-6344-4661-a41b-a04e492baa44"
 
 ### Get-AzureADInstanceDetails
 
  .Synopsis
+ 
   Gets the instance details for an instance of an Access Review.
 
  .Description
+ 
   Gets the details of an instance of an Access Review. Details include the status and the results of the instance.
 
  .Parameter definitionID
+ 
   The definition ID for the Access Review as seen from the Azure AD Portal.
 
  .Parameter instanceID
+ 
   The instanceID for an Access Review that you are interested in inspecting deeply.
 
  .Example
+ 
    Get-AzureADARDefinition -definitionID "a66c337b-6344-4661-a41b-a04e492baa44" -instanceID "a66c337b-6344-4661-a41b-a04e492baa44"
 
 ### Get-AzureADDecisionsFromInstance
 
  .Synopsis
+ 
   Gets the decisions that reviews submitted for an Access Review instance.
 
  .Description
+ 
   Gets the decisions for an instance of an Access Review. Decision details include the decision taken, the reviewer and whent he review was recorded - and also what the system recommendation was.
 
  .Parameter definitionID
+ 
   The definition ID for the Access Review as seen from the Azure AD Portal.
 
  .Parameter instanceID
+ 
   The instanceID for an Access Review that you are interested in inspecting deeply.
 
  .Example
+ 
    Get-AzureADARDefinition -definitionID "a66c337b-6344-4661-a41b-a04e492baa44" -instanceID "a66c337b-6344-4661-a41b-a04e492baa44"
