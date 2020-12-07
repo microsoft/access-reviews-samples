@@ -165,6 +165,33 @@ definitionID                         instanceID                           status
 608df9d0-1558-4f9e-899c-7b88aa964196 de0f0323-0a33-4437-8427-14b3238c041e InProgress {Authorization, Content-Type, ExpiresOn}
 608df9d0-1558-4f9e-899c-7b88aa964196 1e2fcd2f-ec3a-4db5-a193-f9bcef93a34b InProgress {Authorization, Content-Type, ExpiresOn}
 608df9d0-1558-4f9e-899c-7b88aa964196 c42dcd66-c57f-4c7c-9399-a76c6d644e11 InProgress {Authorization, Content-Type, ExpiresOn}
+
+
+# Get-AzureADDecisionsFromInstance $_SampleInternalAuthNHeaders "b3a028bd-f01f-419e-b50f-4b0e18528a05" "b3a028bd-f01f-419e-b50f-4b0e18528a05"
+
+decisionID     : 6ad36c5a-0999-495c-ab8e-54178c9154d1
+decision       : Approve
+recommendation : Deny
+target         : Robert Pettke (EXT)
+reviewedBy     : Jenny Baechtel
+
+decisionID     : 65e6168e-b4a0-4b6c-8bb4-a6fa2eb9e49b
+decision       : Approve
+recommendation : Approve
+target         : Florian Frommherz
+reviewedBy     : Jenny Baechtel
+
+decisionID     : 842467d7-1bf2-44c2-9619-bbc86320b517
+decision       : Approve
+recommendation : Approve
+target         : Jenny Baechtel
+reviewedBy     : Jenny Baechtel
+
+decisionID     : 3857a57a-d555-48e7-a85c-f10f7d3e2334
+decision       : Approve
+recommendation : Deny
+target         : John Doe
+reviewedBy     : Jenny Baechtel
 ```
 
 
