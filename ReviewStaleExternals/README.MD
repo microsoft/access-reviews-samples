@@ -4,6 +4,7 @@
 This Powershell sample script is meant to enumerate the external identities in your tenant and check when their lastSignInDateTime was. When external identities have never signed in to your tenant, or have signed in a long time ago, the script can also:
 * put the external identities that it found never signed in or signed in a long time ago into respective security groups (which it creates new), and add them as members 
 * create Access Reviews for these two groups, and request the external identities to self-attest that they still need access.
+* honor external identities who have been invited but not yet accepted the invitation, so that they are not removed.
 
 This script has two files, both are required:
 1. PS1 file that is the main script. All logic is in this script file.
@@ -62,7 +63,7 @@ The last two lines in the script are (a) there to connect to Azure AD and acquir
 
 If you want to download the script and gather information, download the script file, as well as the .JSON style file, to schedule Access Reviews automatically:
 * ARtemplate.JSON
-* review-stale-externals-OCT2020.ps1
+* review-stale-externals-DEC2020.ps1
 
 As always - use this script in a test environment first, before you carry it forward to a (near-) production environment. This is a sample script, for you to adjust and make it your own.
 
@@ -73,18 +74,18 @@ You can either modify the PS1 script file, such that it contains all relevant in
 
 After modifying the script:
 ```Powershell
-.\review-stale-externals-OCT2020.PS1
+.\review-stale-externals-DEC2020.PS1
 ```
 
 Or commenting out the last two lines and then calling the methods manually:
 ```Powershell
-.\review-stale-externals-OCT2020.PS1
+.\review-stale-externals-DEC2020.PS1
 Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
 Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -$staleDays 60 -createReviewGroups $true -scheduleReviews $true -JSONPath "C:\temp\ARtemplate.json"
 ```
 If you do NOT want Access Reviews scheduled for you, but want the guest identities made members of newly created groups (set "-scheduleReviews" to $false):
 ```Powershell
-.\review-stale-externals-OCT2020.PS1
+.\review-stale-externals-DEC2020.PS1
 Connect-AzureADMSARSample -ClientApplicationId "<applicationID>" -ClientSecret "<clientSecret>" -TenantDomain "yourtenant.onmicrosoft.com"
 Find-AzureADStaleExternals $_SampleInternalAuthNHeaders -$staleDays 60 -createReviewGroups $true -scheduleReviews $false -JSONPath "C:\temp\ARtemplate.json"
 ```
